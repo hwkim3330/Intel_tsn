@@ -1,6 +1,3 @@
-<img width="1728" height="700" alt="image" src="https://github.com/user-attachments/assets/7e6a6367-473e-4c66-897c-9f5710d530fd" />
-<img width="1840" height="699" alt="image" src="https://github.com/user-attachments/assets/86decc3c-7920-41af-94b5-ad0b2b4acb85" />
-
 # Intel i210/i225v 기반 TSN TAS 성능 평가
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  
@@ -44,10 +41,7 @@
 - **X축**: `tx_time % cycle_length` (사이클 내 전송 위치)  
 - **Y축**: 실제 지연(latency, ns)  
 
-<div align="center">
-  <img src="figures/scatter_2us.png" width="45%" alt="2µs cycle" />  
-  <img src="figures/scatter_10us.png" width="45%" alt="10µs cycle" />  
-</div>
+<img width="1728" height="700" alt="image" src="https://github.com/user-attachments/assets/7e6a6367-473e-4c66-897c-9f5710d530fd" />
 
 > ◼️ **해석**:  
 > - 2 µs/10 µs 열린 구간(Open slot) 내에 패킷이 집중 배치됨  
@@ -60,7 +54,7 @@
 - **Y축**: 패킷 수  
 - **X축**: 지연(latency, ns)
 
-![Latency Histogram](figures/latency_histogram.png)
+<img width="1840" height="699" alt="image" src="https://github.com/user-attachments/assets/86decc3c-7920-41af-94b5-ad0b2b4acb85" />
 
 > ◼️ **해석**:  
 > - 두 사이클 모두 주요 지연 분포가 2–4만 ns 구간에 집중  
@@ -72,7 +66,6 @@
 
 - 누적 분포 함수(CDF)로 지연 특성 시각화
 
-![Latency CDF](figures/latency_cdf.png)
 
 > ◼️ **해석**:  
 > - 95% 패킷이 3만 ns 이내에 수신  
