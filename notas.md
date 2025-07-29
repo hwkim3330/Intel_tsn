@@ -151,8 +151,6 @@
 
 ```
 ::contentReference[oaicite:0]{index=0}
-```
-
 
 
 # Prio (802.1p) vs No‑TAS 우선순위 실험 결과
