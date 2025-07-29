@@ -152,3 +152,56 @@
 ```
 ::contentReference[oaicite:0]{index=0}
 ```
+
+
+
+# Prio (802.1p) vs No‑TAS 우선순위 실험 결과
+
+## 1. 실험 환경
+- **송신기(ns1)**: veth0 → 10.0.0.1  
+- **수신기(ns2)**: veth1 → 10.0.0.2  
+- **Prio 설정**: `tc qdisc prio bands 8` + `skbedit priority 0` (band 0, 최상)  
+- **No‑TAS(FIFO)**: `tc qdisc pfifo_fast` (기본 FIFO)  
+- **트래픽**  
+  - Payload‑TS 송신: 10 µs 간격, **100 000개** UDP 패킷  
+  - 포화 부하: `iperf3 -u -b 0 -t 60` 동시 실행  
+- **측정**: `receiver.py` → `latencies_prio.csv`, `latencies_load_no.csv`  
+
+---
+
+## 2. 지연(latency) 비교
+
+| Mode      | Count   | Mean (ns) | P50 (ns) | P95 (ns) | P99 (ns) | Max (ns) |
+|:----------|--------:|----------:|---------:|---------:|---------:|---------:|
+| **Prio**     | 100 000 |   7 981.3 |   6 989  |  10 924  |  15 679  |  89 602  |
+| **No‑TAS**   | 100 000 | 598 310   | 597 483  | 873 277  | 939 794  |1 060 900 |
+
+> ● **Prio** 모드에서 평균 지연은 약 **7.98 µs**로, P95는 **10.9 µs**, P99는 **15.7 µs**를 기록했습니다.  
+> ● **No‑TAS** (FIFO) 모드에서는 평균 **598.3 µs**, P95 **873 µs**, P99 **939 µs**로, 지연이 수백 µs 단위로 급격히 증가했습니다.
+
+---
+
+## 3. 히스토그램
+
+<img width="1015" height="665" alt="image" src="https://github.com/user-attachments/assets/8565b986-b105-434d-900e-635c410501e3" />
+
+> **그림.** 포화 상태에서 Prio(파란) vs No‑TAS(주황) 지연 분포 비교  
+> - Prio는 대부분 0–20 µs 구간에 집중  
+> - No‑TAS는 매우 넓은 분포와 극단적인 outlier가 다수
+
+---
+
+## 4. 결론
+
+- **802.1p Prio**만으로도 포화 트래픽 환경에서 **FIFO 대비 수십 배** 빠른 응답성을 확보할 수 있습니다.  
+- 비록 **TAS**만큼 엄격한 슬롯 제어는 아니지만, 복잡도·호환성을 고려할 때 실용적인 “소프트웨어 우선순위” 방식으로도 실시간 서비스의 지연을 크게 낮출 수 있습니다.
+
+---
+
+*측정 파일*  
+- `latencies_prio.csv`  
+- `latencies_load_no.csv`  
+
+*히스토그램 파일*  
+- `/home/kim/latency_load_compare.png`  
+
