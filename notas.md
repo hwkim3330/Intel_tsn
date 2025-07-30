@@ -64,7 +64,7 @@
 1. **네임스페이스 분리**  
    ```bash
    bash setup_namespaces.sh
-````
+``
 
 2. **Payload‑TS 측정 스크립트**
 
