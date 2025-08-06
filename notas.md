@@ -1,5 +1,8 @@
 <img width="1291" height="856" alt="image" src="https://github.com/user-attachments/assets/4a17f82a-5bc3-4585-9102-3206aaa9eeef" />
+
+
 ## TAS vs No‑TAS 요약 통계
+ㅣ
 | Mode    | Count  | Mean (ns) | P50 (ns) | P95 (ns) | P99 (ns) | Max (ns) |
 |:--------|-------:|----------:|---------:|---------:|---------:|---------:|
 | **TAS**    |   20000 |    20572.2 |     18994 |     31535 |     49808 |    271800 |
