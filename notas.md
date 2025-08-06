@@ -61,10 +61,11 @@
 * **X축**: `tx_time % cycle_ns` → 사이클 내 전송 위치
 * **Y축**: 실제 지연(latency, ns)
 
-![2µs cycle](figures/scatter_2us.png)
+<img width="1728" height="700" alt="image" src="https://github.com/user-attachments/assets/db60d5d4-befc-432f-bbca-2065525e44eb" />
+
 *그림 1. 2 µs 사이클 산점도*
 좌측 0–2 000 ns 구간에,
-![10µs cycle](figures/scatter_10us.png)
+
 *그림 2. 10 µs 사이클 산점도*
 우측 0–10 000 ns 구간에 점들이 집중 분포.
 → TAS 스케줄 대로 **열린 슬롯** 내에서만 패킷이 나갔음을 확인.
@@ -73,10 +74,10 @@
 
 ### 4.2 Latency Histogram & CDF (Idle)
 
-![Latency Histogram](figures/latency_histogram.png)
+<img width="1840" height="699" alt="image" src="https://github.com/user-attachments/assets/7575a7db-ee1d-4baa-96a0-25d6cfd7aab9" />
+
 *그림 3. TAS 모드 산포 무부하 히스토그램*
 
-![Latency CDF](figures/latency_cdf.png)
 *그림 4. TAS 모드 산포 무부하 CDF*
 
 * 평균 ≈ 19.7 µs, P95 ≈ 33.9 µs, P99 ≈ 52.2 µs
@@ -87,7 +88,7 @@
 <img width="1291" height="856" alt="image" src="https://github.com/user-attachments/assets/4a17f82a-5bc3-4585-9102-3206aaa9eeef" />
 
 
-## TAS vs No‑TAS 요약 통계
+## 4.3 TAS vs No‑TAS 일반 무부하 요약 통계
 ㅣ
 | Mode    | Count  | Mean (ns) | P50 (ns) | P95 (ns) | P99 (ns) | Max (ns) |
 |:--------|-------:|----------:|---------:|---------:|---------:|---------:|
@@ -105,6 +106,7 @@
 
 
 ## Cross‑Traffic 부하하 TAS vs No‑TAS 지연 비교
+### 4.4 Under Saturation (부하) 비교
 
 <img width="1713" height="876" alt="image" src="https://github.com/user-attachments/assets/78d27af8-2e15-47d4-a3e9-38a13e8e9824" />
 
@@ -121,6 +123,7 @@
 * **No‑TAS**: 평균 ≈ 598 µs, P99 ≈ 940 µs → 큐잉 지연 급증
 ---
 
+
 ### 다음 단계: Throughput (iperf3) 측정
 - 위 실험과 동시에 `iperf3 -u -b 0` 로 링크를 완전 포화시키는 UDP 스트림을 쏘아,  
 - **지연(latency)** 뿐 아니라 **대역폭(throughput)** 저하 여부도 함께 측정해야 TAS 적용의 실효성을 종합적으로 평가할 수 있습니다.  
@@ -132,20 +135,6 @@
   # ns1: iperf3 클라이언트
   sudo ip netns exec ns1 iperf3 -c 169.254.59.100 -u -b 0 -t 60 -p 5201
 
-
-
-### 4.3 Under Saturation (부하) 비교
-
-| Mode       |   Count | Mean (ns) | P50 (ns) | P95 (ns) | P99 (ns) |  Max (ns) |
-| :--------- | ------: | --------: | -------: | -------: | -------: | --------: |
-| **TAS**    | 100 000 |   194 215 |  195 354 |  263 367 |  271 173 |   353 343 |
-| **No‑TAS** | 100 000 |   598 310 |  597 483 |  873 277 |  939 794 | 1 060 900 |
-
- 
-*그림 5. 포화 트래픽(1 Gbps) 하 TAS vs No‑TAS 히스토그램*
-
-* **TAS**: 평균 ≈ 194 µs, P99 ≈ 271 µs → 포화 상태에서도 안정적
-* **No‑TAS**: 평균 ≈ 598 µs, P99 ≈ 940 µs → 큐잉 지연 급증
 
 ---
 
