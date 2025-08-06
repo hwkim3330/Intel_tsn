@@ -14,6 +14,10 @@
 
 아래 표는 `iperf3`를 이용해 UDP 포화 트래픽(≈1 Gbps)을 발생시키는 상태에서 Payload‑timestamp 방식으로 측정한 **TAS 모드**와 **No‑TAS 모드**의 지연(latency) 통계입니다.
 
+
+
+
+
 | Mode    | Count  | Mean (ns) | P50 (ns) | P95 (ns) | P99 (ns) | Max (ns) |
 |:--------|-------:|----------:|---------:|---------:|---------:|---------:|
 | **TAS**    | 100 000 | 25 865.9 | 22 721  | 51 215  | 67 712  | 226 587 |
@@ -26,7 +30,17 @@
 ---
 
 ### 다음 단계: Throughput (iperf3) 측정
+<img width="1713" height="876" alt="image" src="https://github.com/user-attachments/assets/78d27af8-2e15-47d4-a3e9-38a13e8e9824" />
 
+아래는 방금 그린 그래프에 대응하는 지연 통계치입니다:
+
+| Mode       |   Count | Mean (ns) | P50 (ns) | P95 (ns) | P99 (ns) |  Max (ns) |
+| :--------- | ------: | --------: | -------: | -------: | -------: | --------: |
+| **TAS**    | 100 000 |   7 981.3 |    6 989 |   10 924 |   15 679 |    89 602 |
+| **No-TAS** | 100 000 |   598 310 |  597 483 |  873 277 |  939 794 | 1 060 900 |
+
+* **TAS** 모드: 평균 약 7.98 µs, P95 약 10.9 µs, 최대 89.6 µs
+* **No-TAS** 모드: 평균 약 598.3 µs, P95 약 873 µs, 최대 1 060.9 µs
 - 위 실험과 동시에 `iperf3 -u -b 0` 로 링크를 완전 포화시키는 UDP 스트림을 쏘아,  
 - **지연(latency)** 뿐 아니라 **대역폭(throughput)** 저하 여부도 함께 측정해야 TAS 적용의 실효성을 종합적으로 평가할 수 있습니다.  
 - **제안**  
@@ -36,7 +50,6 @@
 
   # ns1: iperf3 클라이언트
   sudo ip netns exec ns1 iperf3 -c 169.254.59.100 -u -b 0 -t 60 -p 5201
-<img width="1713" height="876" alt="image" src="https://github.com/user-attachments/assets/78d27af8-2e15-47d4-a3e9-38a13e8e9824" />
 
 # TSN TAS 실험 요약 보고서
 
